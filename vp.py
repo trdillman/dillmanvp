@@ -202,8 +202,8 @@ class SNA_OT_Operator_98368dbebf(bpy.types.Operator):
         try:
 
             pass
-            bpy.context.scene.render.resolution_y = 1080
-            bpy.context.scene.render.resolution_x = 1920
+            bpy.context.scene.render.resolution_y = 375
+            bpy.context.scene.render.resolution_x = 812
 
             bpy.ops.object.camera_add('INVOKE_DEFAULT', enter_editmode=False, location=(0.0, 0.0, 0.0),
                                       rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0), align='WORLD')
