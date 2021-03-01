@@ -338,6 +338,8 @@ class SNA_PT_b6a4a58563(bpy.types.Panel):
         layout.prop(bpy.context.scene.sn_generated_addon_properties_UID_Wedsjpol, 'Z_Position', emboss=True, text=r"",
                     slider=False)
 
+        if not DO_CAPTURE:
+            layout.operator("dillmanvp.main", text="Start Server", emboss=True, depress=False)
 
 class SNA_OT_BTN_9a2fd396ce(bpy.types.Operator):
     bl_idname = 'scripting_nodes.sna_ot_btn_9a2fd396ce'
@@ -998,7 +1000,7 @@ buffer_image.use_fake_user = True
 class MainLoop(bpy.types.Operator):
     "screen capture mainloop"
     bl_idname = "dillmanvp.main"
-    bl_label = "dillmanvp main"
+    bl_label = "start capture"
     bl_options = {'REGISTER'}
 
     def modal(self, context, event):
@@ -1045,7 +1047,8 @@ class MainLoop(bpy.types.Operator):
         return {'PASS_THROUGH'}  ## will not supress event bubbles
 
     def invoke(self, context, event):
-        global _mainloop_timer
+        global _mainloop_timer, DO_CAPTURE
+        DO_CAPTURE = True
         if _mainloop_timer is None:
             if '--https' in sys.argv:
                 run_https()
