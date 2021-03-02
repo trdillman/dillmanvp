@@ -1049,6 +1049,7 @@ class MainLoop(bpy.types.Operator):
     def invoke(self, context, event):
         global _mainloop_timer, DO_CAPTURE
         DO_CAPTURE = True
+        resize_capture( CAP_WIDTH, CAP_HEIGHT )
         if _mainloop_timer is None:
             if '--https' in sys.argv:
                 run_https()
