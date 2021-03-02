@@ -682,8 +682,8 @@ def resize_capture(width, height):
     except:
         pass
 
-
-resize_capture( CAP_WIDTH, CAP_HEIGHT )
+## error _RestrictData no attribute scenes
+#resize_capture( CAP_WIDTH, CAP_HEIGHT )
 
 
 
@@ -976,27 +976,6 @@ def run_https():
 
 
 _mainloop_timer = None
-
-# https://blender.stackexchange.com/questions/190140/copy-framebuffer-of-3d-view-into-custom-frame-buffer
-# https://stackoverflow.com/questions/60138184/passing-float-value-texture-to-fragment-shader-returns-incorrect-value
-#buffer = bgl.Buffer(bgl.GL_INT, 320 * 240 * 4)
-#buffer = bgl.Buffer(bgl.GL_BYTE, 320 * 240 * 4)
-## note: must read as GL_FLOAT because a blender Image is 32bits, or glReadPixels only works properly with GL_FLOAT.
-buffer = bgl.Buffer(bgl.GL_FLOAT, CAP_WIDTH * CAP_HEIGHT * 4)
-
-buffer_image = bpy.data.images.new('__FRAME_BUFFER__', CAP_WIDTH, CAP_HEIGHT)
-#buffer_image.depth = 24  ## readonly, must use the default of RGBA, anyways the screen frame buffer is 32bits
-buffer_image.filepath = TMP_JPG
-buffer_image.file_format = 'JPEG'
-buffer_image.use_fake_user = True
-
-## note: if a grease pencil object is selected, performance drops, and blender prints this error:
-##LLVM triggered Diagnostic Handler: Illegal instruction detected: VOP* instruction violates constant bus restriction
-##renamable $vgpr2 = V_CNDMASK_B32_e32 32768, killed $vgpr2, implicit killed $vcc, implicit $exec
-##LLVM failed to compile shader
-## note: workaround is not streaming if a grease pencil object is selected
-## note: this bug may only appear on Ubuntu20.04 with Radeon drivers.
-
 class MainLoop(bpy.types.Operator):
     "screen capture mainloop"
     bl_idname = "dillmanvp.main"
